@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "tsx --env-file .env --watch src/server.ts",
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json --resolve-full-paths",
     "start": "NODE_ENV=production node dist/server.js",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
@@ -34,6 +34,7 @@
     "globals": "^17.11.0",
     "jiti": "^2.7.0",
     "prettier-plugin-organize-imports": "^4.3.0",
+    "tsc-alias": "^1.9.2",
     "tsx": "^4.23.13",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.68.0"
