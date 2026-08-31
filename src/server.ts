@@ -1,13 +1,13 @@
-import express, { type Request, type Response } from "express";
+import express from "express";
+
+import { router } from "@/routes/index";
 
 const NODE_ENV = process.env["NODE_ENV"]?.toLowerCase() || "production";
 const PORT = process.env["PORT"] || 3000;
 
 const app = express();
 
-app.get("/", (_request: Request, response: Response) => {
-  response.send("Hello, World!");
-});
+app.use(router);
 
 app.listen(PORT, async () => {
   try {
