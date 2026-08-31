@@ -1,6 +1,7 @@
 import express from "express";
 
 import { router } from "@/routes/index";
+import { databaseService } from "@/services/database.service";
 
 const NODE_ENV = process.env["NODE_ENV"]?.toLowerCase() || "production";
 const PORT = process.env["PORT"] || 3000;
@@ -11,6 +12,7 @@ app.use(router);
 
 app.listen(PORT, async () => {
   try {
+    await databaseService.connect();
     console.log(`Server is running at http://127.0.0.1:${PORT}`);
     console.log(`Environment: ${NODE_ENV}`);
   } catch (error) {

@@ -1,0 +1,17 @@
+volumes:
+  mongo_data:
+    driver: local
+
+services:
+  mongodb:
+    image: mongo:8.3.8
+    container_name: mongodb_server
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      GLIBC_TUNABLES: glibc.pthread.rseq=1
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo_data:/data/db
