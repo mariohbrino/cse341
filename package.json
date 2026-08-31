@@ -1,0 +1,44 @@
+{
+  "name": "cse341",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "",
+  "license": "MIT",
+  "author": {
+    "name": "Mario Brino",
+    "email": "mariobrino@gmail.com"
+  },
+  "scripts": {
+    "dev": "tsx --env-file .env --watch src/server.ts",
+    "build": "tsc --project tsconfig.build.json",
+    "start": "NODE_ENV=production tsx --env-file .env dist/server.js",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "typescript": "^6"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/express": "^5.0.6",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.11.0",
+    "jiti": "^2.7.0",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "tsx": "^4.23.13",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.68.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true
+  }
+}
