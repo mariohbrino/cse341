@@ -23,5 +23,41 @@ const findContactByEmail = async (email: string): Promise<ContactDocument | null
   return contact;
 };
 
-export { ContactModel, findContactByEmail, findContactById, getAllContacts };
+const createContact = async (contactData: ContactData) => {
+  const createdContact = await ContactModel.findOneAndUpdate(
+    { email: contactData.email },
+    { $setOnInsert: contactData },
+    { returnDocument: "after", upsert: true },
+  );
+  console.log("Contact created:", createdContact);
+  return createdContact;
+};
+
+const updateContact = async (id: string, updatedData: Partial<ContactData>) => {
+  const updatedContact = await ContactModel.findByIdAndUpdate(id, updatedData, { returnDocument: "after" });
+  if (!updatedContact) {
+    throw new Error(`Contact with id ${id} not found.`);
+  }
+  console.log("Contact updated:", updatedContact);
+  return updatedContact;
+};
+
+const deleteContact = async (id: string) => {
+  const deletedContact = await ContactModel.findByIdAndDelete(id);
+  if (!deletedContact) {
+    throw new Error(`Contact with id ${id} not found.`);
+  }
+  console.log("Contact deleted:", deletedContact);
+  return deletedContact;
+};
+
+export {
+  ContactModel,
+  createContact,
+  deleteContact,
+  findContactByEmail,
+  findContactById,
+  getAllContacts,
+  updateContact,
+};
 export type { ContactData, ContactDocument };

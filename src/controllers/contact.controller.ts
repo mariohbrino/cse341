@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
+import { z } from "zod";
 
-import { findContactById, getAllContacts } from "@/models/contact.model";
+import type { ContactData } from "@/models/contact.model";
+import { createContact, deleteContact, findContactById, getAllContacts, updateContact } from "@/models/contact.model";
 
 class ContactController {
   index = async (_request: Request, response: Response): Promise<Response> => {
@@ -19,6 +21,45 @@ class ContactController {
     }
 
     return response.status(200).json(contact);
+  };
+
+  createSchema = z.object({
+    body: z.object({
+      firstName: z.string(),
+      lastName: z.string(),
+      email: z.email(),
+      favoriteColor: z.string(),
+      birthday: z.coerce.date(),
+    }) satisfies z.ZodType<ContactData>,
+  });
+
+  store = async (request: Request, response: Response): Promise<Response> => {
+    const contactData: ContactData = request.body;
+    const createdContact = await createContact(contactData);
+    return response.status(201).json(createdContact);
+  };
+
+  update = async (request: Request, response: Response): Promise<Response> => {
+    const { id } = request.params;
+    const updatedData: Partial<ContactData> = request.body;
+
+    const contact = await updateContact(id as string, updatedData);
+    if (!contact) {
+      return response.status(404).json({ message: "Contact not found" });
+    }
+
+    return response.status(200).json(contact);
+  };
+
+  delete = async (request: Request, response: Response): Promise<Response> => {
+    const { id } = request.params;
+
+    const contactDeleted = await deleteContact(id as string);
+    if (!contactDeleted) {
+      return response.status(404).json({ message: "Contact not found" });
+    }
+
+    return response.status(200).json({ message: "Contact deleted successfully" });
   };
 }
 
