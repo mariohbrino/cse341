@@ -11,7 +11,9 @@
   },
   "scripts": {
     "dev": "tsx --env-file .env --watch src/server.ts",
-    "build": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json --resolve-full-paths",
+    "build": "tsc --project tsconfig.build.json",
+    "postbuild": "tsc-alias -p tsconfig.build.json --resolve-full-paths",
+    "preview": "NODE_ENV=production node --env-file .env dist/server.js",
     "start": "NODE_ENV=production node dist/server.js",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
