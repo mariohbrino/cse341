@@ -1,6 +1,6 @@
 import express from "express";
 
-import { router } from "@/routes/index";
+import { router } from "@/routes/index.route";
 import { databaseService } from "@/services/database.service";
 
 const NODE_ENV = process.env["NODE_ENV"]?.toLowerCase() || "production";
