@@ -19,6 +19,10 @@ class ContactController {
     const contacts = await getAllContacts();
 
     response.setHeader("Content-Type", "application/json");
+    if (!contacts) {
+      return response.status(404).json({ message: "No contacts found." });
+    }
+
     return response.status(200).json(contacts);
   };
 
@@ -28,7 +32,7 @@ class ContactController {
 
     response.setHeader("Content-Type", "application/json");
     if (!contact) {
-      return response.status(404).json({ message: "Contact not found" });
+      return response.status(404).json({ message: "Cannot find contact." });
     }
 
     return response.status(200).json(contact);
@@ -46,15 +50,11 @@ class ContactController {
 
     response.setHeader("Content-Type", "application/json");
     if (!contact) {
-      return response.status(404).json({ message: "Contact not found" });
+      return response.status(404).json({ message: "Cannot update contact, not found." });
     }
 
     const updatedData: Partial<ContactData> = request.body;
-
     const contactUpdated = await updateContact(id as string, updatedData);
-    if (!contactUpdated) {
-      return response.status(404).json({ message: "Contact not found" });
-    }
 
     return response.status(200).json(contactUpdated);
   };
@@ -65,13 +65,10 @@ class ContactController {
 
     response.setHeader("Content-Type", "application/json");
     if (!contact) {
-      return response.status(404).json({ message: "Contact not found" });
+      return response.status(404).json({ message: "Cannot delete contact, not found." });
     }
 
-    const contactDeleted = await deleteContact(id as string);
-    if (!contactDeleted) {
-      return response.status(404).json({ message: "Contact not found" });
-    }
+    await deleteContact(id as string);
 
     return response.status(200).json({ message: "Contact deleted successfully" });
   };
