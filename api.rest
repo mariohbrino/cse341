@@ -27,9 +27,15 @@ Content-Type: application/json
 
 ###
 
-// Update a contact by ID
+// Get the contact that was just created
+# @name getCreatedContactById
+GET {{hostname}}/contacts/{{createContact.response.body._id}}
+
+###
+
+// Update the contact that was just created by ID
 # @name updateContact
-PUT {{hostname}}/contacts/{{createContact.response.body._id}}
+PUT {{hostname}}/contacts/{{getCreatedContactById.response.body._id}}
 Content-Type: application/json
 
 {
@@ -42,8 +48,8 @@ Content-Type: application/json
 
 ###
 
-// Delete a contact by ID
+// Delete the contact that was just created by ID
 # @name deleteContact
-DELETE {{hostname}}/contacts/{{createContact.response.body._id}}
+DELETE {{hostname}}/contacts/{{getCreatedContactById.response.body._id}}
 
 ###
