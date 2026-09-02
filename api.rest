@@ -1,0 +1,37 @@
+@hostname = http://localhost:3000
+
+# @name contacts
+GET {{hostname}}/contacts/
+
+###
+
+# @name contact
+POST {{hostname}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Judy",
+  "lastName": "Doe",
+  "email": "judy.doe@example.com",
+  "favoriteColor": "green",
+  "birthday": "1996-06-03"
+}
+
+###
+
+PUT {{hostname}}/contacts/{{contact.response.body._id}}
+Content-Type: application/json
+
+{
+  "firstName": "Judy",
+  "lastName": "Doe [Updated]",
+  "email": "judy.doe@example.com",
+  "favoriteColor": "green",
+  "birthday": "1996-06-03"
+}
+
+###
+
+DELETE {{hostname}}/contacts/{{contact.response.body._id}}
+
+###
