@@ -1,11 +1,19 @@
 @hostname = http://localhost:3000
 
-# @name contacts
+// Get all contacts
+# @name getAllContacts
 GET {{hostname}}/contacts/
 
 ###
 
-# @name contact
+// Get a single contact by ID
+# @name getContactById
+GET {{hostname}}/contacts/{{getAllContacts.response.body.$[0]._id}}
+
+###
+
+// Create a new contact
+# @name createContact
 POST {{hostname}}/contacts
 Content-Type: application/json
 
@@ -19,7 +27,9 @@ Content-Type: application/json
 
 ###
 
-PUT {{hostname}}/contacts/{{contact.response.body._id}}
+// Update a contact by ID
+# @name updateContact
+PUT {{hostname}}/contacts/{{createContact.response.body._id}}
 Content-Type: application/json
 
 {
@@ -32,6 +42,8 @@ Content-Type: application/json
 
 ###
 
-DELETE {{hostname}}/contacts/{{contact.response.body._id}}
+// Delete a contact by ID
+# @name deleteContact
+DELETE {{hostname}}/contacts/{{createContact.response.body._id}}
 
 ###
