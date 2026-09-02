@@ -7,10 +7,10 @@ import { createContact, deleteContact, findContactById, getAllContacts, updateCo
 class ContactController {
   createSchema = z.object({
     body: z.object({
-      firstName: z.string(),
-      lastName: z.string(),
-      email: z.email(),
-      favoriteColor: z.string(),
+      firstName: z.string().nonempty("First name cannot be empty"),
+      lastName: z.string().nonempty("Last name cannot be empty"),
+      email: z.email().nonempty("Email cannot be empty"),
+      favoriteColor: z.string().nonempty("Favorite color cannot be empty"),
       birthday: z.coerce.date(),
     }) satisfies z.ZodType<ContactData>,
   });
