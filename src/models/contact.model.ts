@@ -27,14 +27,17 @@ const createContact = async (contactData: ContactData) => {
   const createdContact = await ContactModel.findOneAndUpdate(
     { email: contactData.email },
     { $setOnInsert: contactData },
-    { returnDocument: "after", upsert: true },
+    { returnDocument: "after", upsert: true, runValidators: true },
   );
   console.log("Contact created:", createdContact);
   return createdContact;
 };
 
 const updateContact = async (id: string, updatedData: Partial<ContactData>) => {
-  const updatedContact = await ContactModel.findByIdAndUpdate(id, updatedData, { returnDocument: "after" });
+  const updatedContact = await ContactModel.findByIdAndUpdate(id, updatedData, {
+    returnDocument: "after",
+    runValidators: true,
+  });
   if (!updatedContact) {
     throw new Error(`Contact with id ${id} not found.`);
   }
