@@ -67,6 +67,8 @@ jobs:
           cache: "npm"
       - name: Install node dependencies
         run: npm ci
+      - name: Copy .env file
+        run: cp .env.example .env
       - name: Run type check
         run: npm run typecheck
 
@@ -87,5 +89,7 @@ jobs:
           cache: "npm"
       - name: Install node dependencies
         run: npm ci
+      - name: Copy .env file
+        run: cp .env.example .env
       - name: Run build
         run: npm run build

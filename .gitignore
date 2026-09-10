@@ -144,3 +144,6 @@ vite.config.ts.timestamp-*
 
 # Custom Folders
 frontend/
+
+# Custom Files
+src/openapi.json
