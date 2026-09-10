@@ -18,4 +18,5 @@ const doc = {
   schemes: PRODUCTION ? ["https"] : ["http", "https"],
 };
 
-swaggerAutogen()(outputFile, routes, doc);
+const generateSwagger = swaggerAutogen({ openapi: "3.2.0" });
+generateSwagger(outputFile, routes, doc);
