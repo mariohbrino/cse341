@@ -13,7 +13,7 @@
     "dev": "concurrently \"npm run dev:local\" \"npm run dev:openapi\"",
     "dev:local": "tsx --env-file .env --watch src/server.ts",
     "dev:openapi": "nodemon -x tsx --env-file .env src/openapi.ts --watch src --ext ts",
-    "prebuild": "tsx --env-file .env src/openapi.ts",
+    "prebuild": "tsx src/openapi.ts",
     "build": "tsc --project tsconfig.build.json",
     "postbuild": "tsc-alias -p tsconfig.build.json --resolve-full-paths",
     "preview": "NODE_ENV=production node --env-file .env dist/server.js",
