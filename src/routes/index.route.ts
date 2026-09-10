@@ -1,17 +1,16 @@
 import express from "express";
 
-import { homeController } from "@/controllers/home.controller";
-import { professionalController } from "@/controllers/professional.controller";
 import { contactRoutes } from "@/routes/contacts.route";
+import { docsRouter } from "@/routes/docs.route";
+import { homeRoutes } from "@/routes/home.route";
+import { professionalRoutes } from "@/routes/professional.route";
 
 const router = express.Router();
 
-router.get("/", homeController.index);
-
-// Professional
-router.get("/professional", professionalController.index);
-
-// Contacts
+router.use("/", homeRoutes);
 router.use("/contacts", contactRoutes);
+router.use("/professional", professionalRoutes);
+
+router.use("/docs", docsRouter);
 
 export { router };

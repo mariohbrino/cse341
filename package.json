@@ -10,7 +10,10 @@
     "email": "mariobrino@gmail.com"
   },
   "scripts": {
-    "dev": "tsx --env-file .env --watch src/server.ts",
+    "dev": "concurrently \"npm run dev:local\" \"npm run dev:openapi\"",
+    "dev:local": "tsx --env-file .env --watch src/server.ts",
+    "dev:openapi": "nodemon -x tsx --env-file .env src/openapi.ts --watch src --ext ts",
+    "prebuild": "npm run dev:openapi",
     "build": "tsc --project tsconfig.build.json",
     "postbuild": "tsc-alias -p tsconfig.build.json --resolve-full-paths",
     "preview": "NODE_ENV=production node --env-file .env dist/server.js",
@@ -19,6 +22,7 @@
     "format:fix": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "pretypecheck": "npm run dev:openapi",
     "typecheck": "tsc --noEmit",
     "cli": "tsx --env-file .env src/cli/index.cli.ts"
   },
@@ -26,6 +30,7 @@
     "typescript": "^6"
   },
   "dependencies": {
+    "@scalar/express-api-reference": "^0.10.18",
     "express": "^5.2.1",
     "mongoose": "^9.9.4",
     "zod": "^4.5.4"
@@ -36,11 +41,14 @@
     "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
     "commander": "^15.0.0",
+    "concurrently": "^10.0.5",
     "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.11.0",
     "jiti": "^2.7.0",
+    "nodemon": "^3.1.14",
     "prettier-plugin-organize-imports": "^4.3.0",
+    "swagger-autogen": "^2.23.7",
     "tsc-alias": "^1.9.2",
     "tsx": "^4.23.13",
     "typescript": "^6.0.3",
