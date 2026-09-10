@@ -11,6 +11,6 @@ router.use("/", homeRoutes);
 router.use("/contacts", contactRoutes);
 router.use("/professional", professionalRoutes);
 
-router.use("/docs", docsRouter);
+router.use("/api-docs", docsRouter);
 
 export { router };
