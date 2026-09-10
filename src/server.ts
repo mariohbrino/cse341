@@ -10,6 +10,7 @@ app.listen(PORT, async () => {
   try {
     await databaseService.connect();
     console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Docs are available at http://localhost:${PORT}/api-docs`);
     console.log(`Environment: ${NODE_ENV}`);
   } catch (error) {
     console.error("Error connecting to the database:", error);
