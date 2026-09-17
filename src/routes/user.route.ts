@@ -81,6 +81,10 @@ router.get("/:id", (request: Request, response: Response) => {
       description: 'User retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "User retrieved successfully" } } } }
     };
+   * #swagger.responses[400] = {
+      description: 'Bad request.',
+      content: { "application/json": { schema: { type: "object", example: { message: "User ID is required." } } } }
+    };
    * #swagger.responses[404] = {
       description: 'Not found response',
       content: { "application/json": { schema: { type: "object", example: { message: "No user found" } } } }
@@ -123,7 +127,7 @@ router.put("/:id", validateMiddleware(userController.createSchema), (request: Re
           }
         }
       }
-    }
+    };
    * #swagger.responses[200] = {
       description: 'User updated successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "User updated successfully" } } } }
@@ -151,6 +155,10 @@ router.delete("/:id", (request: Request, response: Response) => {
    * #swagger.responses[200] = {
       description: 'User deleted successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "User deleted successfully" } } } }
+    };
+   * #swagger.responses[400] = {
+      description: 'Bad request.',
+      content: { "application/json": { schema: { type: "object", example: { message: "User ID is required." } } } }
     };
    * #swagger.responses[404] = {
       description: 'User not found.',

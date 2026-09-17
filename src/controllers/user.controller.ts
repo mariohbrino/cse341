@@ -29,7 +29,13 @@ class UserController {
     response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
-      const user = await findUserById(id as string);
+      const userId = typeof id === "string" ? id.trim() : undefined;
+
+      if (!userId) {
+        return response.status(400).json({ message: "User ID is required." });
+      }
+
+      const user = await findUserById(userId as string);
 
       if (!user) {
         return response.status(404).json({ message: "Cannot find user." });
@@ -60,8 +66,14 @@ class UserController {
     response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
+      const userId = typeof id === "string" ? id.trim() : undefined;
+
+      if (!userId) {
+        return response.status(400).json({ message: "User ID is required." });
+      }
+
       const userData: UserData = request.body;
-      const updatedUser = await updateUser(id as string, userData);
+      const updatedUser = await updateUser(userId as string, userData);
       if (!updatedUser) {
         return response.status(404).json({ message: "Cannot find user." });
       }
@@ -76,7 +88,13 @@ class UserController {
     response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
-      const deletedUser = await deleteUser(id as string);
+      const userId = typeof id === "string" ? id.trim() : undefined;
+
+      if (!userId) {
+        return response.status(400).json({ message: "User ID is required." });
+      }
+
+      const deletedUser = await deleteUser(userId as string);
 
       if (!deletedUser) {
         return response.status(404).json({ message: "Cannot find user." });
