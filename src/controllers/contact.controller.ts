@@ -31,7 +31,12 @@ class ContactController {
     response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
-      const contact = await findContactById(id as string);
+      const contactId = typeof id === "string" ? id.trim() : undefined;
+
+      if (!contactId) {
+        return response.status(400).json({ message: "Contact ID is required." });
+      }
+      const contact = await findContactById(contactId);
 
       if (!contact) {
         return response.status(404).json({ message: "Cannot find contact." });
@@ -60,14 +65,20 @@ class ContactController {
 
     try {
       const { id } = request.params;
-      const contact = await findContactById(id as string);
+      const contactId = typeof id === "string" ? id.trim() : undefined;
+
+      if (!contactId) {
+        return response.status(400).json({ message: "Contact ID is required." });
+      }
+
+      const contact = await findContactById(contactId);
 
       if (!contact) {
         return response.status(404).json({ message: "Cannot update contact, not found." });
       }
 
       const updatedData: Partial<ContactData> = request.body;
-      const contactUpdated = await updateContact(id as string, updatedData);
+      const contactUpdated = await updateContact(contactId, updatedData);
 
       return response.status(200).json(contactUpdated);
     } catch (error) {
@@ -80,13 +91,19 @@ class ContactController {
     response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
-      const contact = await findContactById(id as string);
+      const contactId = typeof id === "string" ? id.trim() : undefined;
+
+      if (!contactId) {
+        return response.status(400).json({ message: "Contact ID is required." });
+      }
+
+      const contact = await findContactById(contactId);
 
       if (!contact) {
         return response.status(404).json({ message: "Cannot delete contact, not found." });
       }
 
-      await deleteContact(id as string);
+      await deleteContact(contactId);
 
       return response.status(200).json({ message: "Contact deleted successfully" });
     } catch (error) {

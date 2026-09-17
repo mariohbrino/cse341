@@ -13,11 +13,11 @@ router.get("/", (request: Request, response: Response) => {
    * #swagger.responses[200] = {
       description: 'Successful contacts retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contacts retrieved successfully" } } } }
-    };
+    }
    * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while fetching contacts." } } } }
-    };
+    }
    */
   return contactController.index(request, response);
 });
@@ -62,19 +62,29 @@ router.post("/", validateMiddleware(contactController.createSchema), (request: R
         }
       }
     }
-   * #swagger.responses[201] = {
+  * #swagger.responses[201] = {
       description: 'Successful contact creation response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact created successfully" } } } }
-    };
-   * #swagger.responses[400] = {
-      description: 'Bad request.',
-      content: { "application/json": { schema: { type: "object", example: { message: "Invalid request payload" } } } }
-    };
-   * #swagger.responses[500] = {
+    }
+  * #swagger.responses[400] = {
+      description: 'Bad request - Invalid input data.',
+      content: { 
+        "application/json": { 
+          schema: { 
+            type: "object" 
+          }, 
+          examples: {
+            missingContactId: { value: { message: "Contact ID is required." } },
+            invalidPayload: { value: { message: "Invalid request payload" } }
+          } 
+        } 
+      }
+    }
+  * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while creating the contact." } } } }
-    };
-   */
+    }
+  */
   return contactController.store(request, response);
 });
 
@@ -85,15 +95,19 @@ router.get("/:id", (request: Request, response: Response) => {
    * #swagger.responses[200] = {
       description: 'Successful contact retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact retrieved successfully" } } } }
-    };
+    }
+   * #swagger.responses[400] = {
+      description: 'Bad request.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Contact ID is required." } } } }
+    }
    * #swagger.responses[404] = {
       description: 'Not found response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact not found" } } } }
-    };
+    }
    * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while fetching the contact." } } } }
-    };
+    }
    */
   return contactController.show(request, response);
 });
@@ -141,19 +155,29 @@ router.put("/:id", validateMiddleware(contactController.createSchema), (request:
    * #swagger.responses[200] = {
       description: 'Successful contact update response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact updated successfully" } } } }
-    };
+    }
    * #swagger.responses[400] = {
-      description: 'Bad request.',
-      content: { "application/json": { schema: { type: "object", example: { message: "Invalid request payload" } } } }
-    };
+      description: 'Bad request - Invalid input data.',
+      content: { 
+        "application/json": { 
+          schema: { 
+            type: "object" 
+          }, 
+          examples: {
+            missingContactId: { value: { message: "Contact ID is required." } },
+            invalidPayload: { value: { message: "Invalid request payload" } }
+          } 
+        } 
+      }
+    }
    * #swagger.responses[404] = {
       description: 'Not found response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact not found" } } } }
-    };
+    }
    * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while updating the contact." } } } }
-    };
+    }
    */
   return contactController.update(request, response);
 });
@@ -165,15 +189,19 @@ router.delete("/:id", (request: Request, response: Response) => {
    * #swagger.responses[200] = {
       description: 'Successful contact deletion response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact deleted successfully" } } } }
-    };
+    }
+   * #swagger.responses[400] = {
+      description: 'Bad request.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Contact ID is required." } } } }
+    }
    * #swagger.responses[404] = {
       description: 'Not found response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact not found" } } } }
-    };
+    }
    * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while deleting the contact." } } } }
-    };
+    }
    */
   return contactController.delete(request, response);
 });
