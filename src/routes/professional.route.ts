@@ -6,8 +6,7 @@ const router = express.Router();
 
 router.get("/professional", (request: express.Request, response: express.Response) => {
   /**
-   * #swagger.tags = ['Professional']
-   * #swagger.description = 'Get all professional entries'
+   * #swagger.ignore = true
    */
   return professionalController.index(request, response);
 });
