@@ -9,9 +9,9 @@ import { userRouter } from "./user.route";
 const router = express.Router();
 
 router.use("/", homeRoutes);
+router.use("/users", userRouter);
 router.use("/contacts", contactRoutes);
 router.use("/professional", professionalRoutes);
-router.use("/users", userRouter);
 
 router.use("/api-docs", docsRouter);
 
