@@ -14,10 +14,6 @@ router.get("/", (request: Request, response: Response) => {
       description: 'Successful contacts retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contacts retrieved successfully" } } } }
     };
-   * #swagger.responses[204] = {
-      description: 'No contacts found.',
-      content: { "application/json": { schema: { type: "object", example: { message: "No contacts found" } } } }
-    };
    * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while fetching contacts." } } } }
