@@ -15,8 +15,8 @@ export const getAllUsers = async (): Promise<UserDocument[]> => {
 
 export const findUserById = async (id: string): Promise<UserDocument | null> => {
   try {
-    const contact = await UserModel.findById(id);
-    return contact;
+    const user = await UserModel.findById(id);
+    return user;
   } catch (error) {
     console.error(error);
     return null;
@@ -35,13 +35,13 @@ export const findUserByEmail = async (email: string): Promise<UserDocument | nul
 
 export const createUser = async (userData: UserData) => {
   try {
-    const createdContact = await UserModel.findOneAndUpdate(
+    const createdUser = await UserModel.findOneAndUpdate(
       { email: userData.email },
       { $setOnInsert: userData },
       { returnDocument: "after", upsert: true, runValidators: true },
     );
-    console.log("Contact created:", createdContact);
-    return createdContact;
+    console.log("User created:", createdUser);
+    return createdUser;
   } catch (error) {
     console.error(error);
     return null;
