@@ -20,8 +20,8 @@ class ContactController {
     try {
       const contacts = await getAllContacts();
 
-      if (!contacts) {
-        return response.status(404).json({ message: "No contacts found." });
+      if (contacts.length === 0) {
+        return response.status(204).json({ message: "No contacts found" });
       }
 
       return response.status(200).json(contacts);
