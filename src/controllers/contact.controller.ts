@@ -16,61 +16,87 @@ class ContactController {
   });
 
   index = async (_request: Request, response: Response): Promise<Response> => {
-    const contacts = await getAllContacts();
-
     response.setHeader("Content-Type", "application/json");
-    if (!contacts) {
-      return response.status(404).json({ message: "No contacts found." });
-    }
+    try {
+      const contacts = await getAllContacts();
 
-    return response.status(200).json(contacts);
+      if (!contacts) {
+        return response.status(404).json({ message: "No contacts found." });
+      }
+
+      return response.status(200).json(contacts);
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({ message: "An error occurred while fetching contacts." });
+    }
   };
 
   show = async (request: Request, response: Response): Promise<Response> => {
-    const { id } = request.params;
-    const contact = await findContactById(id as string);
-
     response.setHeader("Content-Type", "application/json");
-    if (!contact) {
-      return response.status(404).json({ message: "Cannot find contact." });
-    }
+    try {
+      const { id } = request.params;
+      const contact = await findContactById(id as string);
 
-    return response.status(200).json(contact);
+      if (!contact) {
+        return response.status(404).json({ message: "Cannot find contact." });
+      }
+      return response.status(200).json(contact);
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({ message: "An error occurred while fetching the contact." });
+    }
   };
 
   store = async (request: Request, response: Response): Promise<Response> => {
-    const contactData: ContactData = request.body;
-    const createdContact = await createContact(contactData);
-    return response.status(201).json(createdContact);
+    response.setHeader("Content-Type", "application/json");
+    try {
+      const contactData: ContactData = request.body;
+      const createdContact = await createContact(contactData);
+      return response.status(201).json(createdContact);
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({ message: "An error occurred while creating the contact." });
+    }
   };
 
   update = async (request: Request, response: Response): Promise<Response> => {
-    const { id } = request.params;
-    const contact = await findContactById(id as string);
-
     response.setHeader("Content-Type", "application/json");
-    if (!contact) {
-      return response.status(404).json({ message: "Cannot update contact, not found." });
+
+    try {
+      const { id } = request.params;
+      const contact = await findContactById(id as string);
+
+      if (!contact) {
+        return response.status(404).json({ message: "Cannot update contact, not found." });
+      }
+
+      const updatedData: Partial<ContactData> = request.body;
+      const contactUpdated = await updateContact(id as string, updatedData);
+
+      return response.status(200).json(contactUpdated);
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({ message: "An error occurred while updating the contact." });
     }
-
-    const updatedData: Partial<ContactData> = request.body;
-    const contactUpdated = await updateContact(id as string, updatedData);
-
-    return response.status(200).json(contactUpdated);
   };
 
   delete = async (request: Request, response: Response): Promise<Response> => {
-    const { id } = request.params;
-    const contact = await findContactById(id as string);
-
     response.setHeader("Content-Type", "application/json");
-    if (!contact) {
-      return response.status(404).json({ message: "Cannot delete contact, not found." });
+    try {
+      const { id } = request.params;
+      const contact = await findContactById(id as string);
+
+      if (!contact) {
+        return response.status(404).json({ message: "Cannot delete contact, not found." });
+      }
+
+      await deleteContact(id as string);
+
+      return response.status(200).json({ message: "Contact deleted successfully" });
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({ message: "An error occurred while deleting the contact." });
     }
-
-    await deleteContact(id as string);
-
-    return response.status(200).json({ message: "Contact deleted successfully" });
   };
 }
 
