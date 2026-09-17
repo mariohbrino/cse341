@@ -1,4 +1,4 @@
-type CommandInterface = {
+export type CommandInterface = {
   name: string;
   description: string;
   options: {
@@ -8,5 +8,3 @@ type CommandInterface = {
   }[];
   action: (options: Record<string, unknown>) => Promise<void>;
 };
-
-export type { CommandInterface };

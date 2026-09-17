@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-const ProfessionalSchema = new Schema(
+export const ProfessionalSchema = new Schema(
   {
     professionalName: { type: String, required: true, unique: true },
     nameLink: {
@@ -23,5 +23,3 @@ const ProfessionalSchema = new Schema(
   },
   { collection: "professional" },
 );
-
-export { ProfessionalSchema };

@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { ZodError, type ZodType } from "zod";
 
-const validateMiddleware =
+export const validateMiddleware =
   <T extends ZodType>(schema: T) =>
   (request: Request, response: Response, next: NextFunction) => {
     try {
@@ -19,5 +19,3 @@ const validateMiddleware =
       return response.status(500).json({ error: "Internal Server Error" });
     }
   };
-
-export { validateMiddleware };

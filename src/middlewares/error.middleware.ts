@@ -17,7 +17,7 @@ type HttpError = Error & {
  * @param next The next middleware function
  * @returns void
  */
-const handleNotFoundMiddleware = (request: Request, _response: Response, next: NextFunction): void => {
+export const handleNotFoundMiddleware = (request: Request, _response: Response, next: NextFunction): void => {
   const err: HttpError = new Error(`Page Not Found: ${request.method} ${request.originalUrl}`);
   err.status = 404;
   return next(err);
@@ -30,7 +30,7 @@ const handleNotFoundMiddleware = (request: Request, _response: Response, next: N
  * @param response The response object
  * @param _next The next middleware function (not used)
  */
-const errorHandlerMiddleware = (
+export const errorHandlerMiddleware = (
   err: HttpError,
   _request: Request,
   response: Response,
@@ -61,5 +61,3 @@ const errorHandlerMiddleware = (
   // Send the appropriate error template as JSON
   return response.status(status).json({ context });
 };
-
-export { errorHandlerMiddleware, handleNotFoundMiddleware };
