@@ -14,7 +14,6 @@ class PostController {
   });
 
   index = async (_request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const posts = await getAllPosts();
 
@@ -26,7 +25,6 @@ class PostController {
   };
 
   show = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const postId = typeof id === "string" ? id.trim() : undefined;
@@ -47,7 +45,6 @@ class PostController {
   };
 
   store = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const postData: PostData = request.body;
       postData.slug = postData.title.toLowerCase().replace(/\s+/g, "-");
@@ -60,8 +57,6 @@ class PostController {
   };
 
   update = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
-
     try {
       const { id } = request.params;
       const postId = typeof id === "string" ? id.trim() : undefined;
@@ -87,7 +82,6 @@ class PostController {
   };
 
   delete = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const postId = typeof id === "string" ? id.trim() : undefined;

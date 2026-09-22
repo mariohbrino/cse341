@@ -14,7 +14,6 @@ class UserController {
   });
 
   index = async (_request: Request, response: Response) => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const users = await getAllUsers();
 
@@ -26,7 +25,6 @@ class UserController {
   };
 
   show = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const userId = typeof id === "string" ? id.trim() : undefined;
@@ -48,7 +46,6 @@ class UserController {
   };
 
   create = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const userData: UserData = request.body;
       const newUser = await createUser(userData);
@@ -63,7 +60,6 @@ class UserController {
   };
 
   update = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const userId = typeof id === "string" ? id.trim() : undefined;
@@ -85,7 +81,6 @@ class UserController {
   };
 
   delete = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const userId = typeof id === "string" ? id.trim() : undefined;

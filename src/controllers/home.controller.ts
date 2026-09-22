@@ -4,7 +4,6 @@ class HomeController {
   index = async (request: Request, response: Response) => {
     void request;
     try {
-      response.setHeader("Content-Type", "application/json");
       return response.json({ message: "Hello, World!" });
     } catch (error) {
       console.error(error);
@@ -14,7 +13,6 @@ class HomeController {
 
   invalid = async (request: Request, response: Response) => {
     void request;
-    response.setHeader("Content-Type", "application/json");
     try {
       throw new Error("Something went wrong");
     } catch (error) {

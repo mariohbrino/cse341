@@ -16,7 +16,6 @@ class ContactController {
   });
 
   index = async (_request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const contacts = await getAllContacts();
 
@@ -28,7 +27,6 @@ class ContactController {
   };
 
   show = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const contactId = typeof id === "string" ? id.trim() : undefined;
@@ -49,7 +47,6 @@ class ContactController {
   };
 
   store = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const contactData: ContactData = request.body;
       const createdContact = await createContact(contactData);
@@ -61,8 +58,6 @@ class ContactController {
   };
 
   update = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
-
     try {
       const { id } = request.params;
       const contactId = typeof id === "string" ? id.trim() : undefined;
@@ -88,7 +83,6 @@ class ContactController {
   };
 
   delete = async (request: Request, response: Response): Promise<Response> => {
-    response.setHeader("Content-Type", "application/json");
     try {
       const { id } = request.params;
       const contactId = typeof id === "string" ? id.trim() : undefined;

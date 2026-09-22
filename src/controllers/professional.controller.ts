@@ -6,8 +6,6 @@ class ProfessionalController {
   index = async (_request: Request, response: Response) => {
     const professional = await findProfessionalByName("John Doe");
 
-    response.setHeader("Content-Type", "application/json");
-
     if (!professional) {
       response.status(404).json({ message: "Professional not found" });
       return;
