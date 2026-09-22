@@ -10,6 +10,7 @@ router.get("/", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Retrieve a list of all posts.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'List of posts retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Posts retrieved successfully" } } } }
@@ -26,6 +27,7 @@ router.post("/", validateMiddleware(postController.createSchema), (request: Requ
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Create a new post.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[201] = {
       description: 'Post created successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post created successfully" } } } }
@@ -87,6 +89,7 @@ router.get("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Retrieve a single post by ID.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Post retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post retrieved successfully" } } } }
@@ -111,6 +114,7 @@ router.put("/:id", validateMiddleware(postController.createSchema), (request: Re
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Update an existing post by ID.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.requestBody = {
       description: 'Post update payload',
       required: true,
@@ -172,6 +176,7 @@ router.delete("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Delete a post by ID.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Post deleted successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post deleted successfully" } } } }

@@ -9,6 +9,7 @@ router.get("/", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Profile']
    * #swagger.description = 'Get the authenticated user profile'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Authenticated user profile retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Authenticated user profile retrieved successfully" } } } }

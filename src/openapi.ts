@@ -26,7 +26,6 @@ const doc = {
       },
     },
   },
-  security: [{ auth0Session: [] }],
 };
 
 const generateSwagger = swaggerAutogen({ openapi: "3.2.0" });

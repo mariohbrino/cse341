@@ -10,6 +10,7 @@ router.get("/", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['User']
    * #swagger.description = 'Retrieve a list of all users.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'List of users retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Users retrieved successfully" } } } }
@@ -26,6 +27,7 @@ router.post("/", validateMiddleware(userController.createSchema), (request: Requ
   /**
    * #swagger.tags = ['User']
    * #swagger.description = 'Create a new user.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[201] = {
       description: 'User created successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "User created successfully" } } } }
@@ -86,6 +88,7 @@ router.get("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['User']
    * #swagger.description = 'Retrieve a single user by ID.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'User retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "User retrieved successfully" } } } }
@@ -110,6 +113,7 @@ router.put("/:id", validateMiddleware(userController.createSchema), (request: Re
   /**
    * #swagger.tags = ['User']
    * #swagger.description = 'Update an existing user by ID.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.requestBody = {
       description: 'User update payload',
       required: true,
@@ -170,6 +174,7 @@ router.delete("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['User']
    * #swagger.description = 'Delete a user by ID.'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'User deleted successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "User deleted successfully" } } } }

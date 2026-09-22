@@ -10,6 +10,7 @@ router.get("/", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Get all contacts'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Successful contacts retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contacts retrieved successfully" } } } }
@@ -26,6 +27,7 @@ router.post("/", validateMiddleware(contactController.createSchema), (request: R
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Create a new contact'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.requestBody = {
       description: 'Contact creation payload',
       required: true,
@@ -92,6 +94,7 @@ router.get("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Get a contact by ID'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Successful contact retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact retrieved successfully" } } } }
@@ -116,6 +119,7 @@ router.put("/:id", validateMiddleware(contactController.createSchema), (request:
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Update a contact by ID'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.requestBody = {
       description: 'Contact update payload',
       required: true,
@@ -186,6 +190,7 @@ router.delete("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Delete a contact by ID'
+   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Successful contact deletion response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact deleted successfully" } } } }
