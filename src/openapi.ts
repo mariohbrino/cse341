@@ -16,6 +16,17 @@ const doc = {
   },
   host: BASE_URL,
   schemes: PRODUCTION ? ["https"] : ["http", "https"],
+  components: {
+    securitySchemes: {
+      auth0Session: {
+        type: "apiKey",
+        in: "cookie",
+        name: "appSession",
+        description: "Created by the server-side Auth0 login flow.",
+      },
+    },
+  },
+  security: [{ auth0Session: [] }],
 };
 
 const generateSwagger = swaggerAutogen({ openapi: "3.2.0" });

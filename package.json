@@ -32,6 +32,7 @@
   "dependencies": {
     "@scalar/express-api-reference": "^0.10.18",
     "express": "^5.2.1",
+    "express-openid-connect": "^2.20.2",
     "mongoose": "^9.9.4",
     "zod": "^4.5.4"
   },

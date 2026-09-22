@@ -1,6 +1,7 @@
 import express from "express";
 
 import { router } from "@/routes/index.route";
+import { authMiddleware } from "./middlewares/auth.middleware";
 import { errorHandlerMiddleware, handleNotFoundMiddleware } from "./middlewares/error.middleware";
 import { responseMiddleware } from "./middlewares/response.middleware";
 
@@ -10,6 +11,7 @@ const app = express();
 // Apply middlewares
 app.use(express.json());
 app.use(authMiddleware);
+app.use(responseMiddleware);
 
 // Register the main router
 app.use(router);
