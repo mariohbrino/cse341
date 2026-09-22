@@ -10,7 +10,11 @@ class UserController {
       firstName: z.string().nonempty("First name cannot be empty"),
       lastName: z.string().nonempty("Last name cannot be empty"),
       email: z.email().nonempty("Email cannot be empty"),
-    }) satisfies z.ZodType<Omit<UserData, "status">>,
+      status: z.enum(["active", "inactive"]).optional(),
+      verifiedToken: z.string().nonempty("Verified token cannot be empty").optional(),
+      verifiedEmail: z.boolean().optional(),
+      role: z.enum(["user", "admin"]).optional(),
+    }) satisfies z.ZodType<Partial<Omit<UserData, "status">>>,
   });
 
   index = async (_request: Request, response: Response) => {

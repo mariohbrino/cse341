@@ -39,19 +39,18 @@ router.post("/", validateMiddleware(userController.createSchema), (request: Requ
             type: 'object',
             required: ['firstName', 'lastName', 'email'],
             properties: {
-              firstName: {
-                type: 'string',
-                example: 'John'
-              },
-              lastName: {
-                type: 'string',
-                example: 'Doe'
-              },
-              email: {
-                type: 'string',
-                format: 'email',
-                example: 'john.doe@example.com'
-              }
+              firstName: { type: 'string' },
+              lastName: { type: 'string' },
+              email: { type: 'string', format: 'email' },
+              status: { type: 'string', enum: ['active', 'inactive'] },
+              verifyToken: { type: 'string' },
+              verifiedEmail: { type: 'boolean' },
+              role: { type: 'string', enum: ['user', 'admin'] }
+            },
+            example: {
+              firstName: 'John',
+              lastName: 'Doe',
+              email: 'john.doe@example.com'
             }
           }
         }
@@ -120,19 +119,18 @@ router.put("/:id", validateMiddleware(userController.createSchema), (request: Re
             type: 'object',
             required: ['firstName', 'lastName', 'email'],
             properties: {
-              firstName: {
-                type: 'string',
-                example: 'John'
-              },
-              lastName: {
-                type: 'string',
-                example: 'Doe'
-              },
-              email: {
-                type: 'string',
-                format: 'email',
-                example: 'john.doe@example.com'
-              }
+              firstName: { type: 'string' },
+              lastName: { type: 'string' },
+              email: { type: 'string', format: 'email' },
+              status: { type: 'string', enum: ['active', 'inactive'] },
+              verifyToken: { type: 'string' },
+              verifiedEmail: { type: 'boolean' },
+              role: { type: 'string', enum: ['user', 'admin'] }
+            },
+            example: {
+              firstName: 'John',
+              lastName: 'Doe',
+              email: 'john.doe@example.com'
             }
           }
         }
