@@ -3,6 +3,7 @@ import { Router } from "express";
 
 import { postController } from "@/controllers/post.controller";
 import { validateMiddleware } from "@/middlewares/validate.middleware";
+import { requiresAuth } from "@/utils/auth.util";
 
 const router = Router();
 
@@ -10,7 +11,6 @@ router.get("/", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Retrieve a list of all posts.'
-   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'List of posts retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Posts retrieved successfully" } } } }
@@ -23,8 +23,12 @@ router.get("/", (request: Request, response: Response) => {
   return postController.index(request, response);
 });
 
-router.post("/", validateMiddleware(postController.createSchema), (request: Request, response: Response) => {
-  /**
+router.post(
+  "/",
+  requiresAuth(),
+  validateMiddleware(postController.createSchema),
+  (request: Request, response: Response) => {
+    /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Create a new post.'
    * #swagger.security = [{ auth0Session: [] }]
@@ -82,14 +86,14 @@ router.post("/", validateMiddleware(postController.createSchema), (request: Requ
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while creating the post" } } } }
     }
    */
-  return postController.store(request, response);
-});
+    return postController.store(request, response);
+  },
+);
 
 router.get("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Retrieve a single post by ID.'
-   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Post retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post retrieved successfully" } } } }
@@ -110,8 +114,12 @@ router.get("/:id", (request: Request, response: Response) => {
   return postController.show(request, response);
 });
 
-router.put("/:id", validateMiddleware(postController.createSchema), (request: Request, response: Response) => {
-  /**
+router.put(
+  "/:id",
+  requiresAuth(),
+  validateMiddleware(postController.createSchema),
+  (request: Request, response: Response) => {
+    /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Update an existing post by ID.'
    * #swagger.security = [{ auth0Session: [] }]
@@ -169,10 +177,11 @@ router.put("/:id", validateMiddleware(postController.createSchema), (request: Re
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while updating the post" } } } }
     }
    */
-  return postController.update(request, response);
-});
+    return postController.update(request, response);
+  },
+);
 
-router.delete("/:id", (request: Request, response: Response) => {
+router.delete("/:id", requiresAuth(), (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Post']
    * #swagger.description = 'Delete a post by ID.'

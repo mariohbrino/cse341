@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.use("/", homeRoutes);
 router.use("/users", requiresAuth(), userRouter);
-router.use("/posts", requiresAuth(), postRouter);
+router.use("/posts", postRouter);
 router.use("/contacts", contactRoutes);
 router.use("/professional", professionalRoutes);
 router.use("/profile", requiresAuth(), profileRouter);

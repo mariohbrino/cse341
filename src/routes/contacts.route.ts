@@ -3,6 +3,7 @@ import { Router } from "express";
 
 import { contactController } from "@/controllers/contact.controller";
 import { validateMiddleware } from "@/middlewares/validate.middleware";
+import { requiresAuth } from "@/utils/auth.util";
 
 const router = Router();
 
@@ -10,7 +11,6 @@ router.get("/", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Get all contacts'
-   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Successful contacts retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contacts retrieved successfully" } } } }
@@ -23,8 +23,12 @@ router.get("/", (request: Request, response: Response) => {
   return contactController.index(request, response);
 });
 
-router.post("/", validateMiddleware(contactController.createSchema), (request: Request, response: Response) => {
-  /**
+router.post(
+  "/",
+  requiresAuth(),
+  validateMiddleware(contactController.createSchema),
+  (request: Request, response: Response) => {
+    /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Create a new contact'
    * #swagger.security = [{ auth0Session: [] }]
@@ -87,14 +91,14 @@ router.post("/", validateMiddleware(contactController.createSchema), (request: R
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while creating the contact." } } } }
     }
   */
-  return contactController.store(request, response);
-});
+    return contactController.store(request, response);
+  },
+);
 
 router.get("/:id", (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Get a contact by ID'
-   * #swagger.security = [{ auth0Session: [] }]
    * #swagger.responses[200] = {
       description: 'Successful contact retrieval response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact retrieved successfully" } } } }
@@ -115,8 +119,12 @@ router.get("/:id", (request: Request, response: Response) => {
   return contactController.show(request, response);
 });
 
-router.put("/:id", validateMiddleware(contactController.createSchema), (request: Request, response: Response) => {
-  /**
+router.put(
+  "/:id",
+  requiresAuth(),
+  validateMiddleware(contactController.createSchema),
+  (request: Request, response: Response) => {
+    /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Update a contact by ID'
    * #swagger.security = [{ auth0Session: [] }]
@@ -183,10 +191,11 @@ router.put("/:id", validateMiddleware(contactController.createSchema), (request:
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while updating the contact." } } } }
     }
    */
-  return contactController.update(request, response);
-});
+    return contactController.update(request, response);
+  },
+);
 
-router.delete("/:id", (request: Request, response: Response) => {
+router.delete("/:id", requiresAuth(), (request: Request, response: Response) => {
   /**
    * #swagger.tags = ['Contacts']
    * #swagger.description = 'Delete a contact by ID'
