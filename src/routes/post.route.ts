@@ -36,7 +36,7 @@ router.post(
       description: 'Post created successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post created successfully" } } } }
     }
-    * #swagger.requestBody = {
+   * #swagger.requestBody = {
       description: 'Post creation payload',
       required: true,
       content: {
@@ -63,11 +63,11 @@ router.post(
         }
       }
     }
-    * #swagger.responses[201] = {
+   * #swagger.responses[201] = {
       description: 'Successful post creation response',
       content: { "application/json": { schema: { type: "object", example: { message: "Post created successfully" } } } }
     }
-    * #swagger.responses[400] = {
+   * #swagger.responses[400] = {
       description: 'Bad request - Invalid input data.',
       content: { 
         "application/json": { 
@@ -81,7 +81,11 @@ router.post(
         } 
       }
     }
-    * #swagger.responses[500] = {
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
+   * #swagger.responses[500] = {
       description: 'Internal server error.',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while creating the post" } } } }
     }
@@ -168,6 +172,10 @@ router.put(
         } 
       }
     }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
    * #swagger.responses[404] = {
       description: 'Post not found.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post not found" } } } }
@@ -193,6 +201,10 @@ router.delete("/:id", requiresAuth(), (request: Request, response: Response) => 
    * #swagger.responses[400] = {
       description: 'Bad request.',
       content: { "application/json": { schema: { type: "object", example: { message: "Post ID is required." } } } }
+    }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
     }
    * #swagger.responses[404] = {
       description: 'Post not found.',

@@ -68,11 +68,11 @@ router.post(
         }
       }
     }
-  * #swagger.responses[201] = {
+   * #swagger.responses[201] = {
       description: 'Successful contact creation response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact created successfully" } } } }
     }
-  * #swagger.responses[400] = {
+   * #swagger.responses[400] = {
       description: 'Bad request - Invalid input data.',
       content: { 
         "application/json": { 
@@ -86,7 +86,11 @@ router.post(
         } 
       }
     }
-  * #swagger.responses[500] = {
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
+   * #swagger.responses[500] = {
       description: 'Internal server error response',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while creating the contact." } } } }
     }
@@ -182,6 +186,10 @@ router.put(
         } 
       }
     }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
    * #swagger.responses[404] = {
       description: 'Not found response',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact not found" } } } }
@@ -207,6 +215,10 @@ router.delete("/:id", requiresAuth(), (request: Request, response: Response) => 
    * #swagger.responses[400] = {
       description: 'Bad request.',
       content: { "application/json": { schema: { type: "object", example: { message: "Contact ID is required." } } } }
+    }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
     }
    * #swagger.responses[404] = {
       description: 'Not found response',

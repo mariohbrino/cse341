@@ -15,6 +15,10 @@ router.get("/", (request: Request, response: Response) => {
       description: 'List of users retrieved successfully.',
       content: { "application/json": { schema: { type: "object", example: { message: "Users retrieved successfully" } } } }
     }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
    * #swagger.responses[500] = {
       description: 'Internal server error.',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while fetching users" } } } }
@@ -76,6 +80,10 @@ router.post("/", validateMiddleware(userController.createSchema), (request: Requ
         } 
       }
     }
+    * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
     * #swagger.responses[500] = {
       description: 'Internal server error.',
       content: { "application/json": { schema: { type: "object", example: { message: "An error occurred while creating the user" } } } }
@@ -96,6 +104,10 @@ router.get("/:id", (request: Request, response: Response) => {
    * #swagger.responses[400] = {
       description: 'Bad request.',
       content: { "application/json": { schema: { type: "object", example: { message: "User ID is required." } } } }
+    }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
     }
    * #swagger.responses[404] = {
       description: 'Not found response',
@@ -158,6 +170,10 @@ router.put("/:id", validateMiddleware(userController.createSchema), (request: Re
         } 
       }
     }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
+    }
    * #swagger.responses[404] = {
       description: 'User not found.',
       content: { "application/json": { schema: { type: "object", example: { message: "User not found" } } } }
@@ -182,6 +198,10 @@ router.delete("/:id", (request: Request, response: Response) => {
    * #swagger.responses[400] = {
       description: 'Bad request.',
       content: { "application/json": { schema: { type: "object", example: { message: "User ID is required." } } } }
+    }
+   * #swagger.responses[401] = {
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
     }
    * #swagger.responses[404] = {
       description: 'User not found.',

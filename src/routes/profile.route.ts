@@ -15,8 +15,8 @@ router.get("/", (request: Request, response: Response) => {
       content: { "application/json": { schema: { type: "object", example: { message: "Authenticated user profile retrieved successfully" } } } }
     }
    * #swagger.responses[401] = {
-      description: 'Unauthorized.',
-      content: { "application/json": { schema: { type: "object", example: { message: "User is not authenticated" } } } }
+      description: 'Unauthorized - Authentication required.',
+      content: { "application/json": { schema: { type: "object", example: { message: "Authentication required" } } } }
     }
    * #swagger.responses[500] = {
       description: 'Internal server error.',
